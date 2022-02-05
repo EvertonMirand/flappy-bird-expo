@@ -13,6 +13,16 @@ const gap = 200;
 
 const getRandomBottom = () => -Math.random() * 100;
 
+const checkCollision = (
+  birdBottom: number,
+  obstaclesLeft: number,
+  obstaclesNegHeight: number,
+) =>
+  birdBottom < obstaclesNegHeight + obstacleHeight + 30 ||
+  (birdBottom > obstaclesNegHeight + obstacleHeight + gap - 30 &&
+    obstaclesLeft > screenWidth / 2 - 30 &&
+    obstaclesLeft < screenWidth / 2 + 30);
+
 export default function App() {
   const [birdBottom, setBirdBottom] = useState(screenHeight / 2);
   const [obstaclesLeft, setObstaclesLeft] = useState(screenWidth);
@@ -68,6 +78,21 @@ export default function App() {
       setObstaclesNegHeight2(getRandomBottom());
     }
   }, [obstaclesLeft2]);
+
+  const gameOver = () => {
+    clearInterval(gameTimerId);
+    clearInterval(obstaclesLeftTimerId);
+    clearInterval(obstaclesLeftTimerId2);
+  };
+
+  useEffect(() => {
+    if (
+      checkCollision(birdBottom, obstaclesLeft, obstaclesNegHeight) ||
+      checkCollision(birdBottom, obstaclesLeft2, obstaclesNegHeight2)
+    ) {
+      gameOver();
+    }
+  }, [birdBottom, obstaclesNegHeight, obstaclesLeft]);
 
   return (
     <View style={styles.container}>
