@@ -1,10 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import Bird from './src/components/Bird';
+
+const screenWidth = Dimensions.get('screen').width;
+const screenHeight = Dimensions.get('screen').height;
+const birdLeft = screenWidth / 2;
 
 export default function App() {
+  const [birdBottom, setBirdBottom] = useState(screenHeight / 2);
+
   return (
     <View style={styles.container}>
-      <Text>Hi</Text>
+      <Bird />
     </View>
   );
 }
@@ -12,7 +19,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fffaaa',
     alignItems: 'center',
     justifyContent: 'center',
   },
