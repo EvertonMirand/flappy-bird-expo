@@ -1,0 +1,7 @@
+build/
+node_modules/
+public/
+
+src/service-workes.ts
+src/serviceWorkerRegistration.ts
+src/@types
