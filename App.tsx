@@ -11,13 +11,20 @@ const obstacleWidth = 60;
 const obstacleHeight = 300;
 const gap = 200;
 
+const getRandomBottom = () => -Math.random() * 100;
+
 export default function App() {
   const [birdBottom, setBirdBottom] = useState(screenHeight / 2);
   const [obstaclesLeft, setObstaclesLeft] = useState(screenWidth);
   const [obstaclesLeft2, setObstaclesLeft2] = useState(
     screenWidth + screenWidth / 2 + 30,
   );
-
+  const [obstaclesNegHeight, setObstaclesNegHeight] = useState(
+    -Math.random() * 100,
+  );
+  const [obstaclesNegHeight2, setObstaclesNegHeight2] = useState(
+    -Math.random() * 100,
+  );
   let gameTimerId: NodeJS.Timer;
   let obstaclesLeftTimerId: NodeJS.Timer;
   let obstaclesLeftTimerId2: NodeJS.Timer;
@@ -44,6 +51,7 @@ export default function App() {
       };
     } else {
       setObstaclesLeft(screenWidth);
+      setObstaclesNegHeight(getRandomBottom());
     }
   }, [obstaclesLeft]);
 
@@ -57,6 +65,7 @@ export default function App() {
       };
     } else {
       setObstaclesLeft2(screenWidth);
+      setObstaclesNegHeight2(getRandomBottom());
     }
   }, [obstaclesLeft2]);
 
@@ -67,12 +76,14 @@ export default function App() {
         obstacleHeight={obstacleHeight}
         obstacleLeft={obstaclesLeft}
         obstacleWidth={obstacleWidth}
+        randomBottom={obstaclesNegHeight}
         gap={gap}
       />
       <Obstacles
         obstacleHeight={obstacleHeight}
         obstacleLeft={obstaclesLeft2}
         obstacleWidth={obstacleWidth}
+        randomBottom={obstaclesNegHeight2}
         gap={gap}
         color="red"
       />

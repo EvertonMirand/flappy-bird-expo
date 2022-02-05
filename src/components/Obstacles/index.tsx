@@ -10,6 +10,7 @@ type Props = {
   obstacleHeight: number;
   gap?: number;
   color?: string;
+  randomBottom: number;
 };
 
 const Obstacles: React.FC<Props> = ({
@@ -18,6 +19,7 @@ const Obstacles: React.FC<Props> = ({
   gap = 50,
   obstacleLeft,
   color = 'green',
+  randomBottom = 0,
 }) => {
   return (
     <React.Fragment>
@@ -27,12 +29,14 @@ const Obstacles: React.FC<Props> = ({
         left={obstacleLeft}
         gap={gap}
         color={color}
+        randomBottom={randomBottom}
       />
       <BottomContainer
         height={obstacleHeight}
         width={obstacleWidth}
         left={obstacleLeft}
         color={color}
+        randomBottom={randomBottom}
       />
     </React.Fragment>
   );

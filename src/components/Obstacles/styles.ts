@@ -6,6 +6,7 @@ type Props = {
   left: number;
   gap?: number;
   color?: string;
+  randomBottom: number;
 };
 
 const defaultCss = css<Omit<Props, 'gap'>>`
@@ -23,10 +24,11 @@ export const TopContainer = styled.View<Props>`
   position: absolute;
   background-color: green;
   ${defaultCss}
-  bottom: ${({ height, gap = 0 }) => 0 + height + gap}px;
+  bottom: ${({ height, gap = 0, randomBottom }) =>
+    randomBottom + height + gap}px;
 `;
 
 export const BottomContainer = styled.View<Props>`
   ${defaultCss}
-  bottom: 0;
+  bottom: ${({ randomBottom }) => randomBottom}px;
 `;
