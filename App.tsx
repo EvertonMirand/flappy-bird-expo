@@ -7,16 +7,20 @@ const screenWidth = Dimensions.get('screen').width;
 const screenHeight = Dimensions.get('screen').height;
 const birdLeft = screenWidth / 2;
 const gravity = 3;
+const obstacleWidth = 60;
+const obstacleHeight = 300;
+const gap = 200;
 
 export default function App() {
   const [birdBottom, setBirdBottom] = useState(screenHeight / 2);
   const [obstaclesLeft, setObstaclesLeft] = useState(screenWidth);
+  const [obstaclesLeft2, setObstaclesLeft2] = useState(
+    screenWidth + screenWidth / 2 + 30,
+  );
+
   let gameTimerId: NodeJS.Timer;
   let obstaclesLeftTimerId: NodeJS.Timer;
-
-  const obstacleWidth = 60;
-  const obstacleHeight = 300;
-  const gap = 50;
+  let obstaclesLeftTimerId2: NodeJS.Timer;
 
   // Start bird falling
   useEffect(() => {
@@ -35,12 +39,26 @@ export default function App() {
       obstaclesLeftTimerId = setInterval(() => {
         setObstaclesLeft((value) => value - 5);
       }, 30);
+      return () => {
+        clearInterval(obstaclesLeftTimerId);
+      };
+    } else {
+      setObstaclesLeft(screenWidth);
     }
-
-    return () => {
-      clearInterval(obstaclesLeftTimerId);
-    };
   }, [obstaclesLeft]);
+
+  useEffect(() => {
+    if (obstaclesLeft2 > -obstacleWidth) {
+      obstaclesLeftTimerId2 = setInterval(() => {
+        setObstaclesLeft2((value) => value - 5);
+      }, 30);
+      return () => {
+        clearInterval(obstaclesLeftTimerId2);
+      };
+    } else {
+      setObstaclesLeft2(screenWidth);
+    }
+  }, [obstaclesLeft2]);
 
   return (
     <View style={styles.container}>
@@ -50,6 +68,13 @@ export default function App() {
         obstacleLeft={obstaclesLeft}
         obstacleWidth={obstacleWidth}
         gap={gap}
+      />
+      <Obstacles
+        obstacleHeight={obstacleHeight}
+        obstacleLeft={obstaclesLeft2}
+        obstacleWidth={obstacleWidth}
+        gap={gap}
+        color="red"
       />
     </View>
   );

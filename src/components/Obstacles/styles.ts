@@ -5,15 +5,17 @@ type Props = {
   height: number;
   left: number;
   gap?: number;
+  color?: string;
 };
 
 const defaultCss = css<Omit<Props, 'gap'>>`
   position: absolute;
-  background-color: green;
-  ${({ width, height, left }) => css`
+
+  ${({ width, height, left, color = 'green' }) => css`
     width: ${width}px;
     height: ${height}px;
     left: ${left}px;
+    background-color: ${color};
   `}
 `;
 
